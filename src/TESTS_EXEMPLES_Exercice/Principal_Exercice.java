@@ -77,6 +77,7 @@ public class Principal_Exercice extends javax.swing.JFrame {
         Vector<Revenu> revenus = new Vector<>();
         Vector<Periode> periodes = new Vector<>();
         //RAS
+        //RAS encore
         donneesExercice = new DonneesExercice(exerciceExistant, agents, charges, classes, cours, frais, monnaies, revenus, periodes);
     }
 
