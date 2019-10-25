@@ -11,7 +11,7 @@ import Source.Objet.Agent;
 import Source.Objet.Charge;
 import Source.Objet.Classe;
 import Source.Objet.Cours;
-import Source.Objet.Exercice;
+import Source.Objet.Annee;
 import Source.Objet.Frais;
 import Source.Objet.Monnaie;
 import Source.Objet.Periode;
@@ -25,7 +25,7 @@ import java.util.Vector;
  * @author user
  */
 public class SortiesExercice {
-    private Exercice exercice;
+    private Annee exercice;
     private EcouteurEnregistrement ecouteurEnregistrement;
     private Vector<Monnaie> listeMonnaies;
     private Vector<Classe> listeClasse;
@@ -36,7 +36,7 @@ public class SortiesExercice {
     private Vector<Cours> listeCours;
     private Vector<Periode> listePeriodes;
 
-    public SortiesExercice(Exercice exercice, Vector<Monnaie> listeMonnaies, Vector<Classe> listeClasse, Vector<Frais> listeFrais, Vector<Charge> listeCharges, Vector<Revenu> listeRevenus, Vector<Agent> listeAgents, Vector<Cours> listeCours, Vector<Periode> listePeriodes, EcouteurEnregistrement ecouteurEnregistrement) {
+    public SortiesExercice(Annee exercice, Vector<Monnaie> listeMonnaies, Vector<Classe> listeClasse, Vector<Frais> listeFrais, Vector<Charge> listeCharges, Vector<Revenu> listeRevenus, Vector<Agent> listeAgents, Vector<Cours> listeCours, Vector<Periode> listePeriodes, EcouteurEnregistrement ecouteurEnregistrement) {
         this.exercice = exercice;
         this.ecouteurEnregistrement = ecouteurEnregistrement;
         this.listeMonnaies = listeMonnaies;
@@ -49,11 +49,11 @@ public class SortiesExercice {
         this.listePeriodes = listePeriodes;
     }
 
-    public Exercice getExercice() {
+    public Annee getExercice() {
         return exercice;
     }
 
-    public void setExercice(Exercice exercice) {
+    public void setExercice(Annee exercice) {
         this.exercice = exercice;
     }
 

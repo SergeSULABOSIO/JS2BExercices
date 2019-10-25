@@ -56,7 +56,6 @@ import Source.Interface.InterfaceAgent;
 import Source.Interface.InterfaceCharge;
 import Source.Interface.InterfaceClasse;
 import Source.Interface.InterfaceCours;
-import Source.Interface.InterfaceExercice;
 import Source.Interface.InterfaceFrais;
 import Source.Interface.InterfaceMonnaie;
 import Source.Interface.InterfacePeriode;
@@ -68,7 +67,7 @@ import Source.Objet.Classe;
 import Source.Objet.CouleurBasique;
 import Source.Objet.Cours;
 import Source.Objet.Entreprise;
-import Source.Objet.Exercice;
+import Source.Objet.Annee;
 import Source.Objet.Frais;
 import Source.Objet.LiaisonFraisClasse;
 import Source.Objet.LiaisonFraisPeriode;
@@ -93,6 +92,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableColumn;
+import Source.Interface.InterfaceAnnee;
 
 /**
  *
@@ -1157,9 +1157,9 @@ public class PanelExercice extends javax.swing.JPanel {
     }
 
     private SortiesExercice getSortieAnneeScolaire(Bouton boutonDeclencheur, RubriqueSimple rubriqueDeclencheur) {
-        Exercice xX_Exercice = null;
+        Annee xX_Exercice = null;
         if (this.donneesExercice.getExercice() != null) {
-            Exercice OldExercice = this.donneesExercice.getExercice();
+            Annee OldExercice = this.donneesExercice.getExercice();
             boolean areDeutSame = OldExercice.getDebut().toString().equals(chDebut.getDate().toString());
             boolean areFinSame = OldExercice.getFin().toString().equals(chFin.getDate().toString());
 
@@ -1169,7 +1169,7 @@ public class PanelExercice extends javax.swing.JPanel {
             if (!chNom.getText().equals(OldExercice.getNom()) || areDeutSame == false || areFinSame == false) {
                 // || chDebut.getDate() != OldExercice.getDebut() || chFin.getDate() != OldExercice.getFin()
                 //Objet Modifié
-                xX_Exercice = new Exercice(
+                xX_Exercice = new Annee(
                         OldExercice.getId(),
                         OldExercice.getIdEntreprise(),
                         OldExercice.getIdUtilisateur(),
@@ -1177,11 +1177,11 @@ public class PanelExercice extends javax.swing.JPanel {
                         chDebut.getDate(),
                         chFin.getDate(),
                         UtilObjet.getSignature(),
-                        InterfaceExercice.BETA_MODIFIE
+                        InterfaceAnnee.BETA_MODIFIE
                 );
             } else {
                 //Objet Non Modifié
-                xX_Exercice = new Exercice(
+                xX_Exercice = new Annee(
                         OldExercice.getId(),
                         OldExercice.getIdEntreprise(),
                         OldExercice.getIdUtilisateur(),
@@ -1189,12 +1189,12 @@ public class PanelExercice extends javax.swing.JPanel {
                         OldExercice.getDebut(),
                         OldExercice.getFin(),
                         UtilObjet.getSignature(),
-                        InterfaceExercice.BETA_EXISTANT
+                        InterfaceAnnee.BETA_EXISTANT
                 );
             }
         } else {
             //Objet Non Enregistré
-            xX_Exercice = new Exercice(-1, this.parametreExercice.getEntreprise().getId(), -1, this.chNom.getText(), this.chDebut.getDate(), this.chFin.getDate(), UtilObjet.getSignature(), InterfaceExercice.BETA_NOUVEAU);
+            xX_Exercice = new Annee(-1, this.parametreExercice.getEntreprise().getId(), -1, this.chNom.getText(), this.chDebut.getDate(), this.chFin.getDate(), UtilObjet.getSignature(), InterfaceAnnee.BETA_NOUVEAU);
         }
         SortiesExercice sortiesAnneeScolaire = new SortiesExercice(
                 xX_Exercice,
@@ -1392,9 +1392,9 @@ public class PanelExercice extends javax.swing.JPanel {
         }
 
         //On vérifie aussi l'exercice
-        InterfaceExercice Iexercice = this.donneesExercice.getExercice();
+        InterfaceAnnee Iexercice = this.donneesExercice.getExercice();
         if (Iexercice != null) {
-            if (Iexercice.getBeta() == InterfaceExercice.BETA_MODIFIE || Iexercice.getBeta() == InterfaceExercice.BETA_NOUVEAU) {
+            if (Iexercice.getBeta() == InterfaceAnnee.BETA_MODIFIE || Iexercice.getBeta() == InterfaceAnnee.BETA_NOUVEAU) {
                 rep = true;
             }
         }
@@ -1691,7 +1691,7 @@ public class PanelExercice extends javax.swing.JPanel {
         int dialogResult = JOptionPane.showConfirmDialog(parent, "Etes-vous sûr de vouloir supprimer cette Exercice?", "Avertissement", JOptionPane.YES_NO_OPTION);
         if (dialogResult == JOptionPane.YES_OPTION) {
             if (ecouteurExercice != null && donneesExercice.getExercice() != null) {
-                Exercice exSup = donneesExercice.getExercice();
+                Annee exSup = donneesExercice.getExercice();
                 ecouteurExercice.onDetruitExercice(exSup.getId(), exSup.getSignature());
             }
             if (ecouteurClose != null) {
@@ -1700,7 +1700,7 @@ public class PanelExercice extends javax.swing.JPanel {
         }
     }
 
-    private void setData(InterfaceExercice exrcice) {
+    private void setData(InterfaceAnnee exrcice) {
         if (exrcice != null) {
             this.chNom.setTextInitial("Nom de l'exercice");
             this.chDebut.setDate(exrcice.getDebut());

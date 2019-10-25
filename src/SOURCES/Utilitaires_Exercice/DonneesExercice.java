@@ -9,7 +9,7 @@ import Source.Objet.Agent;
 import Source.Objet.Charge;
 import Source.Objet.Classe;
 import Source.Objet.Cours;
-import Source.Objet.Exercice;
+import Source.Objet.Annee;
 import Source.Objet.Frais;
 import Source.Objet.Monnaie;
 import Source.Objet.Periode;
@@ -22,7 +22,7 @@ import java.util.Vector;
  * @author HP Pavilion
  */
 public class DonneesExercice {
-    public Exercice exercice;
+    public Annee exercice;
     public Vector<Agent> agents;
     public Vector<Charge> charges;
     public Vector<Classe> classes;
@@ -32,7 +32,7 @@ public class DonneesExercice {
     public Vector<Revenu> revenus;
     public Vector<Periode> periodes;
 
-    public DonneesExercice(Exercice exercice, Vector<Agent> agents, Vector<Charge> charges, Vector<Classe> classes, Vector<Cours> cours, Vector<Frais> frais, Vector<Monnaie> monnaies, Vector<Revenu> revenus, Vector<Periode> periodes) {
+    public DonneesExercice(Annee exercice, Vector<Agent> agents, Vector<Charge> charges, Vector<Classe> classes, Vector<Cours> cours, Vector<Frais> frais, Vector<Monnaie> monnaies, Vector<Revenu> revenus, Vector<Periode> periodes) {
         this.exercice = exercice;
         this.agents = agents;
         this.charges = charges;
@@ -44,11 +44,11 @@ public class DonneesExercice {
         this.periodes = periodes;
     }
 
-    public Exercice getExercice() {
+    public Annee getExercice() {
         return exercice;
     }
 
-    public void setExercice(Exercice exercice) {
+    public void setExercice(Annee exercice) {
         this.exercice = exercice;
     }
 

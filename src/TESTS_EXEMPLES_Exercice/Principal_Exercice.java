@@ -17,7 +17,6 @@ import Source.Interface.InterfaceAgent;
 import Source.Interface.InterfaceCharge;
 import Source.Interface.InterfaceClasse;
 import Source.Interface.InterfaceCours;
-import Source.Interface.InterfaceExercice;
 import Source.Interface.InterfaceFrais;
 import Source.Interface.InterfaceMonnaie;
 import Source.Interface.InterfacePeriode;
@@ -29,7 +28,7 @@ import Source.Objet.Classe;
 import Source.Objet.CouleurBasique;
 import Source.Objet.Cours;
 import Source.Objet.Entreprise;
-import Source.Objet.Exercice;
+import Source.Objet.Annee;
 import Source.Objet.Frais;
 import Source.Objet.Monnaie;
 import Source.Objet.Periode;
@@ -38,6 +37,7 @@ import Source.Objet.Utilisateur;
 import static java.lang.Thread.sleep;
 import java.util.Date;
 import java.util.Vector;
+import Source.Interface.InterfaceAnnee;
 
 /**
  *
@@ -65,7 +65,7 @@ public class Principal_Exercice extends javax.swing.JFrame {
     }
 
     private void initDonnees() {
-        Exercice exerciceExistant = null;
+        Annee exerciceExistant = null;
         //exerciceExistant = new TEST_Exercice(12, 10, 15, "Année scolaire 2019 - 2020", new Date(), Util.getDate_AjouterAnnee(new Date(), 1));
 
         Vector<Agent> agents = new Vector<>();
@@ -98,12 +98,12 @@ public class Principal_Exercice extends javax.swing.JFrame {
                             sleep(50);
 
                             //Listage des elements produits par le gestionnaire de l'exercice
-                            Exercice newExerc = sortiesExercice.getExercice();
+                            Annee newExerc = sortiesExercice.getExercice();
                             
-                            if (newExerc.getBeta() == InterfaceExercice.BETA_MODIFIE || newExerc.getBeta() == InterfaceExercice.BETA_NOUVEAU) {
+                            if (newExerc.getBeta() == InterfaceAnnee.BETA_MODIFIE || newExerc.getBeta() == InterfaceAnnee.BETA_NOUVEAU) {
                                 System.out.println(" * EXERCICE: " + newExerc.toString());
                                 
-                                newExerc.setBeta(InterfaceExercice.BETA_EXISTANT);
+                                newExerc.setBeta(InterfaceAnnee.BETA_EXISTANT);
                                 newExerc.setId(10);
                                 newExerc.setIdUtilisateur(10);
                                 newExerc.setIdEntreprise(10);
