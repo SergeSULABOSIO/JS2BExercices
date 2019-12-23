@@ -13,6 +13,7 @@ import SOURCES.Utilitaires_Exercice.ParametreExercice;
 import SOURCES.Utilitaires_Exercice.SortiesExercice;
 import SOURCES.Utilitaires_Exercice.UtilExercice;
 import Source.Callbacks.EcouteurEnregistrement;
+import Source.Callbacks.EcouteurFreemium;
 import Source.Interface.InterfaceAgent;
 import Source.Interface.InterfaceCharge;
 import Source.Interface.InterfaceClasse;
@@ -85,7 +86,12 @@ public class Principal_Exercice extends javax.swing.JFrame {
         initDonnees();
         initParams();
         
-        gestionnaireExercice = new PanelExercice(new CouleurBasique(), tabPrincipale, parametreExercice, donneesExercice, new EcouteurExerice() {
+        gestionnaireExercice = new PanelExercice(new EcouteurFreemium() {
+            @Override
+            public boolean onVerifie() {
+                return true;
+            }
+        }, new CouleurBasique(), tabPrincipale, parametreExercice, donneesExercice, new EcouteurExerice() {
             @Override
             public void onEnregistre(SortiesExercice sortiesExercice) {
 

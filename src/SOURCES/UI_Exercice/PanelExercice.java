@@ -47,6 +47,7 @@ import Source.Callbacks.EcouteurCrossCanalAgent;
 import Source.Callbacks.EcouteurCrossCanalCharge;
 import Source.Callbacks.EcouteurCrossCanalRevenu;
 import Source.Callbacks.EcouteurEnregistrement;
+import Source.Callbacks.EcouteurFreemium;
 import Source.Callbacks.EcouteurSuppressionElement;
 import Source.Callbacks.EcouteurUpdateClose;
 import Source.Callbacks.EcouteurValeursChangees;
@@ -146,9 +147,11 @@ public class PanelExercice extends javax.swing.JPanel {
     private Cours selectedCours = null;
 
     private GestionEdition gestionEdition = new GestionEdition();
+    private EcouteurFreemium ecouteurFreemium = null;
 
-    public PanelExercice(CouleurBasique couleurBasique, JTabbedPane parent, ParametreExercice parametreExercice, DonneesExercice donneesExercice, EcouteurExerice ecouteurExercice) {
+    public PanelExercice(EcouteurFreemium ecouteurFreemium, CouleurBasique couleurBasique, JTabbedPane parent, ParametreExercice parametreExercice, DonneesExercice donneesExercice, EcouteurExerice ecouteurExercice) {
         initComponents();
+        this.ecouteurFreemium = ecouteurFreemium;
         this.couleurBasique = couleurBasique;
         this.parametreExercice = parametreExercice;
         this.donneesExercice = donneesExercice;
@@ -1273,23 +1276,26 @@ public class PanelExercice extends javax.swing.JPanel {
     }
 
     public void imprimer() {
-        if (this.chNom.getText().trim().length() != 0) {
-            int dialogResult = JOptionPane.showConfirmDialog(this, "Etes-vous sûr de vouloir imprimer ce document?", "Avertissement", JOptionPane.YES_NO_OPTION);
-            if (dialogResult == JOptionPane.YES_OPTION) {
-                try {
-                    SortiesExercice sortie = getSortieAnneeScolaire(btImprimer, mImprimer);
-                    DocumentPDF_Exercice documentPDF = new DocumentPDF_Exercice(this, DocumentPDF_Exercice.ACTION_IMPRIMER, sortie);
-                } catch (Exception e) {
-                    e.printStackTrace();
+        if (ecouteurFreemium != null) {
+            if (ecouteurFreemium.onVerifie() == true) {
+                if (this.chNom.getText().trim().length() != 0) {
+                    int dialogResult = JOptionPane.showConfirmDialog(this, "Etes-vous sûr de vouloir imprimer ce document?", "Avertissement", JOptionPane.YES_NO_OPTION);
+                    if (dialogResult == JOptionPane.YES_OPTION) {
+                        try {
+                            SortiesExercice sortie = getSortieAnneeScolaire(btImprimer, mImprimer);
+                            DocumentPDF_Exercice documentPDF = new DocumentPDF_Exercice(this, DocumentPDF_Exercice.ACTION_IMPRIMER, sortie);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                } else {
+                    chNom.setBackground(Color.YELLOW);
+                    String message = "Veuillez saisir le nom de l'année scolaire!";
+                    ecouteurClose.onActualiser(message, icones.getAlert_01());
+                    JOptionPane.showMessageDialog(parent, message, "Le nom de l'années scolaire!", JOptionPane.ERROR_MESSAGE);
                 }
             }
-        } else {
-            chNom.setBackground(Color.YELLOW);
-            String message = "Veuillez saisir le nom de l'année scolaire!";
-            ecouteurClose.onActualiser(message, icones.getAlert_01());
-            JOptionPane.showMessageDialog(parent, message, "Le nom de l'années scolaire!", JOptionPane.ERROR_MESSAGE);
         }
-
     }
 
     public void enregistrer() {
@@ -1316,22 +1322,27 @@ public class PanelExercice extends javax.swing.JPanel {
     }
 
     public void exporterPDF() {
-        if (this.chNom.getText().trim().length() != 0) {
-            int dialogResult = JOptionPane.showConfirmDialog(this, "Voulez-vous les exporter dans un fichier PDF?", "Avertissement", JOptionPane.YES_NO_OPTION);
-            if (dialogResult == JOptionPane.YES_OPTION) {
-                try {
-                    SortiesExercice sortie = getSortieAnneeScolaire(btPDF, mPDF);
-                    DocumentPDF_Exercice docpdf = new DocumentPDF_Exercice(this, DocumentPDF_Exercice.ACTION_OUVRIR, sortie);
-                } catch (Exception e) {
-                    e.printStackTrace();
+        if (ecouteurFreemium != null) {
+            if (ecouteurFreemium.onVerifie() == true) {
+                if (this.chNom.getText().trim().length() != 0) {
+                    int dialogResult = JOptionPane.showConfirmDialog(this, "Voulez-vous les exporter dans un fichier PDF?", "Avertissement", JOptionPane.YES_NO_OPTION);
+                    if (dialogResult == JOptionPane.YES_OPTION) {
+                        try {
+                            SortiesExercice sortie = getSortieAnneeScolaire(btPDF, mPDF);
+                            DocumentPDF_Exercice docpdf = new DocumentPDF_Exercice(this, DocumentPDF_Exercice.ACTION_OUVRIR, sortie);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                } else {
+                    chNom.setBackground(couleurBasique.getCouleur_encadrement_selection());
+                    String message = "Veuillez saisir le nom de l'année scolaire!";
+                    ecouteurClose.onActualiser(message, icones.getAlert_01());
+                    JOptionPane.showMessageDialog(parent, message, "Le nom de l'années scolaire!", JOptionPane.ERROR_MESSAGE);
                 }
             }
-        } else {
-            chNom.setBackground(couleurBasique.getCouleur_encadrement_selection());
-            String message = "Veuillez saisir le nom de l'année scolaire!";
-            ecouteurClose.onActualiser(message, icones.getAlert_01());
-            JOptionPane.showMessageDialog(parent, message, "Le nom de l'années scolaire!", JOptionPane.ERROR_MESSAGE);
         }
+
     }
 
     public void actualiser() {
