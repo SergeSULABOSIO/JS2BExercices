@@ -11,7 +11,6 @@ import SOURCES.Utilitaires_Exercice.UtilExercice;
 import Source.GestionEdition;
 import Source.Interface.InterfaceFrais;
 import Source.Objet.CouleurBasique;
-import Source.Objet.Eleve;
 import Source.Objet.Frais;
 import Source.Objet.Monnaie;
 import Source.UI.CelluleTableauSimple;
@@ -129,6 +128,7 @@ public class RenduTableFrais implements TableCellRenderer {
         return InterfaceFrais.BETA_NOUVEAU;
     }
 }
+
 
 
 
