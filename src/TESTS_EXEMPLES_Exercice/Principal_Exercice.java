@@ -91,6 +91,11 @@ public class Principal_Exercice extends javax.swing.JFrame {
             public boolean onVerifie() {
                 return true;
             }
+
+            @Override
+            public boolean onVerifieNombre(String nomTable) {
+                return true;
+            }
         }, new CouleurBasique(), tabPrincipale, parametreExercice, donneesExercice, new EcouteurExerice() {
             @Override
             public void onEnregistre(SortiesExercice sortiesExercice) {
