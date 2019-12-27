@@ -1323,7 +1323,7 @@ public class PanelExercice extends javax.swing.JPanel {
 
     public void exporterPDF() {
         if (ecouteurFreemium != null) {
-            if (ecouteurFreemium.onVerifie() == true) {
+            if (ecouteurFreemium.onVerifieNombre(null) == true) {
                 if (this.chNom.getText().trim().length() != 0) {
                     int dialogResult = JOptionPane.showConfirmDialog(this, "Voulez-vous les exporter dans un fichier PDF?", "Avertissement", JOptionPane.YES_NO_OPTION);
                     if (dialogResult == JOptionPane.YES_OPTION) {
