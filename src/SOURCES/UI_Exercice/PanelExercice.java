@@ -1277,7 +1277,7 @@ public class PanelExercice extends javax.swing.JPanel {
 
     public void imprimer() {
         if (ecouteurFreemium != null) {
-            if (ecouteurFreemium.onVerifie() == true) {
+            if (ecouteurFreemium.onVerifieNombre(null) == true) {
                 if (this.chNom.getText().trim().length() != 0) {
                     int dialogResult = JOptionPane.showConfirmDialog(this, "Etes-vous sûr de vouloir imprimer ce document?", "Avertissement", JOptionPane.YES_NO_OPTION);
                     if (dialogResult == JOptionPane.YES_OPTION) {
