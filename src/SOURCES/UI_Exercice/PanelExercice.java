@@ -1443,11 +1443,17 @@ public class PanelExercice extends javax.swing.JPanel {
                 //this.ecouteurExercice.onEnregistre(getSortieAnneeScolaire(btEnregistrer, mEnregistrer));
                 //this.ecouteurClose.onFermer();
             } else if (dialogResult == JOptionPane.NO_OPTION) {
+                if(ecouteurExercice != null){
+                    ecouteurExercice.onClose();
+                }
                 this.ecouteurClose.onFermer();
             }
         } else {
             int dialogResult = JOptionPane.showConfirmDialog(this, "Etes-vous sûr de vouloir fermer cette fenêtre?", "Avertissement", JOptionPane.YES_NO_OPTION);
             if (dialogResult == JOptionPane.YES_OPTION) {
+                if(ecouteurExercice != null){
+                    ecouteurExercice.onClose();
+                }
                 this.ecouteurClose.onFermer();
             }
         }

@@ -235,6 +235,11 @@ public class Principal_Exercice extends javax.swing.JFrame {
                 System.out.println("DESCTRUCTION DE L'ELEMENT " + idElement + ", INDEX " + index);
             }
 
+            @Override
+            public void onClose() {
+                System.out.println("ONGLET FERME");
+            }
+
             
             
             
