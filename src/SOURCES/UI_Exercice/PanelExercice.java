@@ -1059,12 +1059,18 @@ public class PanelExercice extends javax.swing.JPanel {
         switch (indexTabSelected) {
             case 0: //Tab période
                 modeleListePeriode.SupprimerPeriode(tableListePeriode.getSelectedRow(), modeleListeFrais, new EcouteurSuppressionElement() {
+
                     @Override
-                    public void onSuppressionConfirmee(int idElement, long signature) {
+                    public void onDeletionComplete(int idElement, long signature) {
                         ecouteurExercice.onDetruitElements(idElement, indexTabSelected, signature);
                     }
-                });
 
+                    @Override
+                    public boolean onCanDelete(int idElement, long signature) {
+                        return ecouteurExercice.onCanDelete(idElement, indexTabSelected, signature);
+                    }
+
+                });
                 break;
             case 1: //Tab monnaie
                 modeleListeMonnaie.SupprimerMonnaie(tableListeMonnaie.getSelectedRow(), new EcouteurSuppressionElement() {
@@ -1443,7 +1449,7 @@ public class PanelExercice extends javax.swing.JPanel {
                 //this.ecouteurExercice.onEnregistre(getSortieAnneeScolaire(btEnregistrer, mEnregistrer));
                 //this.ecouteurClose.onFermer();
             } else if (dialogResult == JOptionPane.NO_OPTION) {
-                if(ecouteurExercice != null){
+                if (ecouteurExercice != null) {
                     ecouteurExercice.onClose();
                 }
                 this.ecouteurClose.onFermer();
@@ -1451,7 +1457,7 @@ public class PanelExercice extends javax.swing.JPanel {
         } else {
             int dialogResult = JOptionPane.showConfirmDialog(this, "Etes-vous sûr de vouloir fermer cette fenêtre?", "Avertissement", JOptionPane.YES_NO_OPTION);
             if (dialogResult == JOptionPane.YES_OPTION) {
-                if(ecouteurExercice != null){
+                if (ecouteurExercice != null) {
                     ecouteurExercice.onClose();
                 }
                 this.ecouteurClose.onFermer();

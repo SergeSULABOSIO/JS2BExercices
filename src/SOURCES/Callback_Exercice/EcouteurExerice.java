@@ -15,6 +15,10 @@ public abstract class EcouteurExerice {
     public abstract void onEnregistre(SortiesExercice sortiesFacture);
     public abstract void onDetruitExercice(int idExercice, long signature);
     public abstract void onDetruitElements(int idElement, int index, long signature);
+    public abstract boolean onCanDelete(int idElement, int index, long signature);
     public abstract void onClose();
     
 }
+
+
+

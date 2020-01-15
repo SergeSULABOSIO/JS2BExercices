@@ -108,29 +108,30 @@ public class ModeleListePeriode extends AbstractTableModel {
             Periode IperiodeASup = listeData.elementAt(row);
             if (IperiodeASup != null) {
                 int idASupp = IperiodeASup.getId();
-                int dialogResult = JOptionPane.showConfirmDialog(parent, "Etes-vous sûr de vouloir supprimer cette liste?", "Avertissement", JOptionPane.YES_NO_OPTION);
-                if (dialogResult == JOptionPane.YES_OPTION) {
-                    if (row <= listeData.size()) {
-                        this.listeData.removeElementAt(row);
-
-                        if (modeleListeFrais != null) {
-                            for (InterfaceFrais ff : modeleListeFrais.getListeData()) {
-                                int indexASup = -1;
-                                Vector<LiaisonFraisPeriode> listLiaisons = ff.getLiaisonsPeriodes();
-                                for (int i = 0; i < listLiaisons.size(); i++) {
-                                    if (listLiaisons.elementAt(i).getNomPeriode().equals(IperiodeASup.getNom())) {
-                                        indexASup = i;
+                if (ecouteurSuppressionElement.onCanDelete(idASupp, IperiodeASup.getSignature()) == true) {
+                    int dialogResult = JOptionPane.showConfirmDialog(parent, "Etes-vous sûr de vouloir supprimer cette liste?", "Avertissement", JOptionPane.YES_NO_OPTION);
+                    if (dialogResult == JOptionPane.YES_OPTION) {
+                        if (row <= listeData.size()) {
+                            this.listeData.removeElementAt(row);
+                            if (modeleListeFrais != null) {
+                                for (InterfaceFrais ff : modeleListeFrais.getListeData()) {
+                                    int indexASup = -1;
+                                    Vector<LiaisonFraisPeriode> listLiaisons = ff.getLiaisonsPeriodes();
+                                    for (int i = 0; i < listLiaisons.size(); i++) {
+                                        if (listLiaisons.elementAt(i).getNomPeriode().equals(IperiodeASup.getNom())) {
+                                            indexASup = i;
+                                        }
+                                    }
+                                    if (indexASup != -1) {
+                                        listLiaisons.removeElementAt(indexASup);
                                     }
                                 }
-                                if (indexASup != -1) {
-                                    listLiaisons.removeElementAt(indexASup);
-                                }
+                                modeleListeFrais.redessinerTable();
                             }
-                            modeleListeFrais.redessinerTable();
+                            ecouteurSuppressionElement.onDeletionComplete(idASupp, IperiodeASup.getSignature());
                         }
-                        ecouteurSuppressionElement.onSuppressionConfirmee(idASupp, IperiodeASup.getSignature());
+                        redessinerTable();
                     }
-                    redessinerTable();
                 }
             }
         }
@@ -260,6 +261,5 @@ public class ModeleListePeriode extends AbstractTableModel {
     }
 
 }
-
 
 
