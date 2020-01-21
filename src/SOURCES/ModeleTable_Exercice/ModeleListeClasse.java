@@ -124,30 +124,33 @@ public class ModeleListeClasse extends AbstractTableModel {
             Classe IclasseASup = listeData.elementAt(row);
             if (IclasseASup != null) {
                 int idASupp = IclasseASup.getId();
-                int dialogResult = JOptionPane.showConfirmDialog(parent, "Etes-vous sûr de vouloir supprimer cette liste?", "Avertissement", JOptionPane.YES_NO_OPTION);
-                if (dialogResult == JOptionPane.YES_OPTION) {
-                    if (row <= listeData.size()) {
-                        this.listeData.removeElementAt(row);
+                if (ecouteurSuppressionElement.onCanDelete(idASupp, IclasseASup.getSignature()) == true) {
+                    int dialogResult = JOptionPane.showConfirmDialog(parent, "Etes-vous sûr de vouloir supprimer cette liste?", "Avertissement", JOptionPane.YES_NO_OPTION);
+                    if (dialogResult == JOptionPane.YES_OPTION) {
+                        if (row <= listeData.size()) {
+                            this.listeData.removeElementAt(row);
 
-                        if (modeleListeFrais != null) {
-                            for (InterfaceFrais ff : modeleListeFrais.getListeData()) {
-                                int indexASup = -1;
-                                Vector<LiaisonFraisClasse> listLiaisons = ff.getLiaisonsClasses();
-                                for (int i = 0; i < listLiaisons.size(); i++) {
-                                    if (listLiaisons.elementAt(i).getNomClasse().equals(IclasseASup.getNom())) {
-                                        indexASup = i;
+                            if (modeleListeFrais != null) {
+                                for (InterfaceFrais ff : modeleListeFrais.getListeData()) {
+                                    int indexASup = -1;
+                                    Vector<LiaisonFraisClasse> listLiaisons = ff.getLiaisonsClasses();
+                                    for (int i = 0; i < listLiaisons.size(); i++) {
+                                        if (listLiaisons.elementAt(i).getNomClasse().equals(IclasseASup.getNom())) {
+                                            indexASup = i;
+                                        }
+                                    }
+                                    if (indexASup != -1) {
+                                        listLiaisons.removeElementAt(indexASup);
                                     }
                                 }
-                                if (indexASup != -1) {
-                                    listLiaisons.removeElementAt(indexASup);
-                                }
+                                modeleListeFrais.redessinerTable();
                             }
-                            modeleListeFrais.redessinerTable();
+                            ecouteurSuppressionElement.onDeletionComplete(idASupp, IclasseASup.getSignature());
                         }
-                        ecouteurSuppressionElement.onSuppressionConfirmee(idASupp, IclasseASup.getSignature());
+                        redessinerTable();
                     }
-                    redessinerTable();
                 }
+
             }
         }
     }
@@ -276,5 +279,3 @@ public class ModeleListeClasse extends AbstractTableModel {
         }
     }
 }
-
-

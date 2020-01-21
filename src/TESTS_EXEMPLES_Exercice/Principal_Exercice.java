@@ -240,10 +240,10 @@ public class Principal_Exercice extends javax.swing.JFrame {
                 System.out.println("ONGLET FERME");
             }
 
-            
-            
-            
-            
+            @Override
+            public boolean onCanDelete(int idElement, int index, long signature) {
+                return true;
+            }
         });
     }
 

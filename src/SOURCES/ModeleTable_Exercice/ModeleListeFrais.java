@@ -142,14 +142,17 @@ public class ModeleListeFrais extends AbstractTableModel {
             Frais articl = listeData.elementAt(row);
             if (articl != null) {
                 int idASupp = articl.getId();
-                int dialogResult = JOptionPane.showConfirmDialog(parent, "Etes-vous sûr de vouloir supprimer cette liste?", "Avertissement", JOptionPane.YES_NO_OPTION);
-                if (dialogResult == JOptionPane.YES_OPTION) {
-                    if (row <= listeData.size()) {
-                        this.listeData.removeElementAt(row);
-                        ecouteurSuppressionElement.onSuppressionConfirmee(idASupp, articl.getSignature());
+                if (ecouteurSuppressionElement.onCanDelete(idASupp, articl.getSignature()) == true) {
+                    int dialogResult = JOptionPane.showConfirmDialog(parent, "Etes-vous sûr de vouloir supprimer cette liste?", "Avertissement", JOptionPane.YES_NO_OPTION);
+                    if (dialogResult == JOptionPane.YES_OPTION) {
+                        if (row <= listeData.size()) {
+                            this.listeData.removeElementAt(row);
+                            ecouteurSuppressionElement.onDeletionComplete(idASupp, articl.getSignature());
+                        }
+                        redessinerTable();
                     }
-                    redessinerTable();
                 }
+
             }
         }
     }
@@ -416,5 +419,3 @@ public class ModeleListeFrais extends AbstractTableModel {
     }
 
 }
-
-

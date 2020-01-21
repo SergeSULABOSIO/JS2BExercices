@@ -1074,57 +1074,94 @@ public class PanelExercice extends javax.swing.JPanel {
                 break;
             case 1: //Tab monnaie
                 modeleListeMonnaie.SupprimerMonnaie(tableListeMonnaie.getSelectedRow(), new EcouteurSuppressionElement() {
+
                     @Override
-                    public void onSuppressionConfirmee(int idElement, long signature) {
+                    public void onDeletionComplete(int idElement, long signature) {
                         ecouteurExercice.onDetruitElements(idElement, indexTabSelected, signature);
+                    }
+
+                    @Override
+                    public boolean onCanDelete(int idElement, long signature) {
+                        return ecouteurExercice.onCanDelete(idElement, indexTabSelected, signature);
                     }
                 });
                 break;
             case 2: //Tab classe
                 modeleListeClasse.SupprimerClasse(tableListeClasses.getSelectedRow(), this.modeleListeFrais, new EcouteurSuppressionElement() {
+
                     @Override
-                    public void onSuppressionConfirmee(int idElement, long signature) {
+                    public void onDeletionComplete(int idElement, long signature) {
                         ecouteurExercice.onDetruitElements(idElement, indexTabSelected, signature);
+                    }
+
+                    @Override
+                    public boolean onCanDelete(int idElement, long signature) {
+                        return ecouteurExercice.onCanDelete(idElement, indexTabSelected, signature);
                     }
                 });
                 break;
             case 3: //Tab frais
                 modeleListeFrais.SupprimerFrais(tableListeFrais.getSelectedRow(), new EcouteurSuppressionElement() {
                     @Override
-                    public void onSuppressionConfirmee(int idElement, long signature) {
+                    public void onDeletionComplete(int idElement, long signature) {
                         ecouteurExercice.onDetruitElements(idElement, indexTabSelected, signature);
+                    }
+
+                    @Override
+                    public boolean onCanDelete(int idElement, long signature) {
+                        return ecouteurExercice.onCanDelete(idElement, indexTabSelected, signature);
                     }
                 });
                 break;
             case 4: //Tab charge
                 modeleListeCharges.SupprimerCharge(tableListeCharge.getSelectedRow(), new EcouteurSuppressionElement() {
                     @Override
-                    public void onSuppressionConfirmee(int idElement, long signature) {
+                    public void onDeletionComplete(int idElement, long signature) {
                         ecouteurExercice.onDetruitElements(idElement, indexTabSelected, signature);
+                    }
+
+                    @Override
+                    public boolean onCanDelete(int idElement, long signature) {
+                        return ecouteurExercice.onCanDelete(idElement, indexTabSelected, signature);
                     }
                 });
                 break;
             case 5: //Tab revenu
                 modeleListeRevenu.SupprimerRevenu(tableListeRevenu.getSelectedRow(), new EcouteurSuppressionElement() {
                     @Override
-                    public void onSuppressionConfirmee(int idElement, long signature) {
+                    public void onDeletionComplete(int idElement, long signature) {
                         ecouteurExercice.onDetruitElements(idElement, indexTabSelected, signature);
+                    }
+
+                    @Override
+                    public boolean onCanDelete(int idElement, long signature) {
+                        return ecouteurExercice.onCanDelete(idElement, indexTabSelected, signature);
                     }
                 });
                 break;
             case 6: //Tab Agnt
                 modeleListeAgent.SupprimerEnseignant(tableListeAgent.getSelectedRow(), new EcouteurSuppressionElement() {
                     @Override
-                    public void onSuppressionConfirmee(int idElement, long signature) {
+                    public void onDeletionComplete(int idElement, long signature) {
                         ecouteurExercice.onDetruitElements(idElement, indexTabSelected, signature);
+                    }
+
+                    @Override
+                    public boolean onCanDelete(int idElement, long signature) {
+                        return ecouteurExercice.onCanDelete(idElement, indexTabSelected, signature);
                     }
                 });
                 break;
             case 7: //Tab Cours
                 modeleListeCours.SupprimerCours(tableListeCours.getSelectedRow(), new EcouteurSuppressionElement() {
                     @Override
-                    public void onSuppressionConfirmee(int idElement, long signature) {
+                    public void onDeletionComplete(int idElement, long signature) {
                         ecouteurExercice.onDetruitElements(idElement, indexTabSelected, signature);
+                    }
+
+                    @Override
+                    public boolean onCanDelete(int idElement, long signature) {
+                        return ecouteurExercice.onCanDelete(idElement, indexTabSelected, signature);
                     }
                 });
                 break;
