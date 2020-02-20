@@ -1813,7 +1813,10 @@ public class PanelExercice extends javax.swing.JPanel {
                     int index = (modeleListeFrais.getRowCount() + 1);
                     InterfaceMonnaie monnaies = getDefaultMonnaie();
                     if (monnaies != null) {
-                        modeleListeFrais.AjouterFrais(new Frais(-1, parametreExercice.getUtilisateur().getId(), parametreExercice.getEntreprise().getId(), -1, monnaies.getId(), monnaies.getSignature(), UtilExercice.generateSignature(), "FRS_" + index, monnaies.getCode(), 3, new Vector<LiaisonFraisClasse>(), new Vector<LiaisonFraisPeriode>(), 0, InterfaceFrais.BETA_NOUVEAU));
+                        Utilisateur user = parametreExercice.getUtilisateur();
+                        Entreprise ese = parametreExercice.getEntreprise();
+                        modeleListeFrais.AjouterFrais(new Frais(-1, user.getId(), ese.getId(), -1, monnaies.getId(), 0, "FRS_" + index, monnaies.getCode(), monnaies.getSignature(), UtilExercice.generateSignature(), InterfaceFrais.BETA_NOUVEAU));
+                        //modeleListeFrais.AjouterFrais(new Frais(-1, parametreExercice.getUtilisateur().getId(), parametreExercice.getEntreprise().getId(), -1, monnaies.getId(), monnaies.getSignature(), UtilExercice.generateSignature(), "FRS_" + index, monnaies.getCode(), 3, new Vector<LiaisonFraisClasse>(), new Vector<LiaisonFraisPeriode>(), 0, InterfaceFrais.BETA_NOUVEAU));
                     }
                 }
             }
