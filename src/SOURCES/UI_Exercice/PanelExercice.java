@@ -1222,7 +1222,7 @@ public class PanelExercice extends javax.swing.JPanel {
                         chNom.getText(),
                         chDebut.getDate(),
                         chFin.getDate(),
-                        UtilObjet.getSignature(),
+                        OldExercice.getSignature(),
                         InterfaceAnnee.BETA_MODIFIE
                 );
             } else {
@@ -1234,7 +1234,7 @@ public class PanelExercice extends javax.swing.JPanel {
                         OldExercice.getNom(),
                         OldExercice.getDebut(),
                         OldExercice.getFin(),
-                        UtilObjet.getSignature(),
+                        OldExercice.getSignature(),
                         InterfaceAnnee.BETA_EXISTANT
                 );
             }

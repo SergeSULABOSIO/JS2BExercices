@@ -65,9 +65,9 @@ public class RenduTableFrais implements TableCellRenderer {
             return "-";
         }
     }
-    
-    private String getPourcentage(double pourcentage, InterfaceFrais Ifrais, String monnaie){
-        if(Ifrais != null){
+
+    private String getPourcentage(double pourcentage, InterfaceFrais Ifrais, String monnaie) {
+        if (Ifrais != null) {
             double montant = ((Ifrais.getMontantDefaut() * pourcentage) / 100);
             return pourcentage + " % (" + UtilExercice.getMontantFrancais(montant) + " " + monnaie + ") ";
         }
@@ -78,43 +78,67 @@ public class RenduTableFrais implements TableCellRenderer {
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         //{"N°", "Nom", "Monnaie", "Total", [Périodes], [Classes]};
         CelluleTableauSimple cellule = null;
-        
-        ImageIcon icone = null;
-        if(gestionEdition != null){
-            Frais Ieleve = this.modeleListeFrais.getFrais(row);
-            if(Ieleve != null){
-                if(gestionEdition.isEditable(Ieleve.getId(), 3)){
-                    icone = iconeEdition;
+        if (value != null) {
+            ImageIcon icone = null;
+            if (gestionEdition != null) {
+                Frais Ieleve = this.modeleListeFrais.getFrais(row);
+                if (Ieleve != null) {
+                    if (gestionEdition.isEditable(Ieleve.getId(), 3)) {
+                        icone = iconeEdition;
+                    }
                 }
             }
-        }
-        
-        
-        String monnaie = getMonnaie(row);
-        InterfaceFrais Ifrais = modeleListeFrais.getFrais(row);
-        int nbLiPeriode = Ifrais.getLiaisonsPeriodes().size();
-        if (column > 3 && column < (4 + nbLiPeriode)) {
-            cellule = new CelluleTableauSimple(couleurBasique, getPourcentage(Double.parseDouble(value + ""), Ifrais, monnaie), CelluleTableauSimple.ALIGNE_DROITE, icone);
-        } else {
-            switch (column) {
-                case 0:
-                    cellule = new CelluleTableauSimple(couleurBasique, " " + value + " ", CelluleTableauSimple.ALIGNE_CENTRE, null);
-                    break;
-                case 1:
-                    cellule = new CelluleTableauSimple(couleurBasique, " " + value + " ", CelluleTableauSimple.ALIGNE_GAUCHE, icone);
-                    break;
-                case 2:
-                    cellule = new CelluleTableauSimple(couleurBasique, " " + getMonnaie(Long.parseLong(value + "")) + " ", CelluleTableauSimple.ALIGNE_GAUCHE, icone);
-                    break;
-                case 3:
-                    cellule = new CelluleTableauSimple(couleurBasique, " " + UtilExercice.getMontantFrancais(Double.parseDouble(value + "")) + " " + monnaie, CelluleTableauSimple.ALIGNE_DROITE, icone);
-                    break;
-                default:
-                    cellule = new CelluleTableauSimple(couleurBasique, " " + UtilExercice.getMontantFrancais(Double.parseDouble(value + "")) + " " + monnaie, CelluleTableauSimple.ALIGNE_DROITE, icone);
-                    break;
+
+            String monnaie = getMonnaie(row);
+            InterfaceFrais Ifrais = modeleListeFrais.getFrais(row);
+            int nbLiPeriode = Ifrais.getLiaisonsPeriodes().size();
+            if (column > 3 && column < (4 + nbLiPeriode)) {
+                String Smon = "Null";
+                try {
+                    Smon = getPourcentage(Double.parseDouble(value + ""), Ifrais, monnaie);
+                } catch (Exception e) {
+                    Smon = "Erreur";
+                }
+                cellule = new CelluleTableauSimple(couleurBasique, Smon, CelluleTableauSimple.ALIGNE_DROITE, icone);
+            } else {
+                switch (column) {
+                    case 0:
+                        cellule = new CelluleTableauSimple(couleurBasique, " " + value + " ", CelluleTableauSimple.ALIGNE_CENTRE, null);
+                        break;
+                    case 1:
+                        cellule = new CelluleTableauSimple(couleurBasique, " " + value + " ", CelluleTableauSimple.ALIGNE_GAUCHE, icone);
+                        break;
+                    case 2:
+                        String Smonnaie = "Null";
+                        try {
+                            Smonnaie = " " + getMonnaie(Long.parseLong(value + "")) + " ";
+                        } catch (Exception e) {
+                            Smonnaie = "Erreur";
+                        }
+                        cellule = new CelluleTableauSimple(couleurBasique, Smonnaie, CelluleTableauSimple.ALIGNE_GAUCHE, icone);
+                        break;
+                    case 3:
+                        String Smonnaiee = "Null";
+                        try {
+                            Smonnaiee = " " + UtilExercice.getMontantFrancais(Double.parseDouble(value + "")) + " " + monnaie;
+                        } catch (Exception e) {
+                            Smonnaiee = "Erreur";
+                        }
+                        cellule = new CelluleTableauSimple(couleurBasique, Smonnaiee, CelluleTableauSimple.ALIGNE_DROITE, icone);
+                        break;
+                    default:
+                        String Smonnaieee = "Null";
+                        try {
+                            Smonnaieee = " " + UtilExercice.getMontantFrancais(Double.parseDouble(value + "")) + " " + monnaie;
+                        } catch (Exception e) {
+                            Smonnaiee = "Erreur";
+                        }
+                        cellule = new CelluleTableauSimple(couleurBasique, Smonnaieee, CelluleTableauSimple.ALIGNE_DROITE, icone);
+                        break;
+                }
             }
+            cellule.ecouterSelection(isSelected, row, getBeta(row), hasFocus);
         }
-        cellule.ecouterSelection(isSelected, row, getBeta(row), hasFocus);
         return cellule;
     }
 
@@ -128,14 +152,3 @@ public class RenduTableFrais implements TableCellRenderer {
         return InterfaceFrais.BETA_NOUVEAU;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
